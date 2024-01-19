@@ -1,0 +1,85 @@
+<head>
+	<meta http-equiv="Content-type" content="text/html; charset=UTF-8" />
+	<meta http-equiv="Content-Language" content="pl" />
+	<meta name="Author" content="Jakub Baranowski" />
+	<title>Moje hobby to muzyka</title>
+	<script src="js/kolorujto.js" type="text/javascript"></script>
+	<script src="js/timedate.js" type="text/javascript"></script>
+	<script src="https://ajax.googleapis.com/ajax/libs/jquery/3.7.1/jquery.min.js"></script>
+	<link rel="stylesheet" href="style.css"/>
+</head>
+
+
+<body onload="startclock()">
+	<h1> Moje hobby to muzyka</h1>
+	<div id="animacjaTestowa1" class="test-block">Kliknij, a się powiększe</div>
+	
+		<script>
+		
+		$("#animacjaTestowa1").on("click", function(){
+			$(this).animate({
+				width:"500px",
+				opacity: 0.4,
+				fontSize: "3em",
+				borderwidth: "10px"
+				}, 1500);
+				});
+				
+		</script>
+		
+	<div id="animacjaTestowa2" class="test-block">Najedź kursorem, a się powiększe</div>
+	
+		<script>
+		
+		$("#animacjaTestowa2").on({
+			"mouseover" : function(){
+				$(this).animate({
+					width: 300,
+				}, 800);
+		},
+				"mouseout" : function(){
+				$(this).animate({
+					width: 200,
+				}, 800);
+		}
+});				
+		</script>
+	<div id="animacjaTestowa3" class="test-block">Klikaj abym urósł</div>
+	<script>
+	$("#animacjaTestowa3").on("click", function(){
+		if(!$(this).is(":animated")){
+			$(this).animate({
+			width: "+=" + 50,
+			height: "+=" + 10,
+			opacity: "+=" + 0.1,
+			duration : 3000
+		});
+	}
+});
+	</script>
+	<div id ="zegarek"></div>
+	<div id="data"></div>
+	
+	<table>
+		<tr>
+			<th><a href="html/Kontakt.html"> Kontakt </a></th>
+			<th><a href="html/Podstawy_Muzyki.html">Podstawy </a></th>
+			<th><a href="html/Instrumenty.html">Instrumenty </a></th>
+			<th><a href="html/Tabulatury.html">Tabulatury </a></th>
+			<th><a href="html/Akordy.html">Akordy </a></th>
+		</tr>
+	</table>
+	<div style= "text-align:center;font-size:20px"> Cześć, jestem Kuba interesuje się muzyką i chciałbym się podzielić z tobą moją pasją </div>
+	<img style= "img-align:center" src="img/gitara_yamaha.jpg" width="1800" height="600"/>
+	<FORM METHOD="POST" NAME="background">
+		<INPUT TYPE="button" VALUE="żółty" ONCLICK="changeBackground('#FFF000')">
+		<INPUT TYPE="button" VALUE="czarny" ONCLICK="changeBackground('000000')">
+		<INPUT TYPE="button" VALUE="biały" ONCLICK="changeBackground('#FFFFFF')">
+		<INPUT TYPE="button" VALUE="zielony" ONCLICK="changeBackground('#00FF00')">
+		<INPUT TYPE="button" VALUE="niebieski" ONCLICK="changeBackground('#0000FF')">
+		<INPUT TYPE="button" VALUE="pomarańczowy" ONCLICK="changeBackground('#FF8000')">
+		<INPUT TYPE="button" VALUE="szary" ONCLICK="changeBackground('#c0c0c0')">
+		<INPUT TYPE="button" VALUE="czerwony" ONCLICK="changeBackground('#FF0000')">
+	</FORM>
+</body>
+
