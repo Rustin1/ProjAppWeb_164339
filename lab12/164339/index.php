@@ -103,7 +103,7 @@
 	
     <FORM METHOD="POST" NAME="background">
 		<INPUT TYPE="button" VALUE="żółty" ONCLICK="changeBackground('#FFF000')">
-		<INPUT TYPE="button" VALUE="czarny" ONCLICK="changeBackground('000000')">
+		<INPUT TYPE="button" VALUE="ciemnoszary" ONCLICK="changeBackground('#808080')">
 		<INPUT TYPE="button" VALUE="biały" ONCLICK="changeBackground('#FFFFFF')">
 		<INPUT TYPE="button" VALUE="zielony" ONCLICK="changeBackground('#00FF00')">
 		<INPUT TYPE="button" VALUE="niebieski" ONCLICK="changeBackground('#0000FF')">

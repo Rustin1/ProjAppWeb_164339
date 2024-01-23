@@ -102,7 +102,7 @@ function PokazProdukty() {
             echo '<td>'.$row['kategoria'].'</td>';
             echo '<td>'.$row['gabaryt_produktu'].'</td>';
             echo '<td>';
-            echo '<img src="zdjecia/' . $row['zdjecie'] . '" alt="Zdjęcie produktu">';
+            echo '<img src="zdjecia/' . $row['zdjecie'] . '" alt="Zdjęcie produktu" width="250" height="150">';
             echo '</td>';
             echo '<td>';
             echo '<form method="post" action="">';

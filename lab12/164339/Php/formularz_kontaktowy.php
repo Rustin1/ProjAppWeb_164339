@@ -2,7 +2,7 @@
 
 function PokazKontakt()
 {
-    // HTML form for displaying the contact form
+    // Wyświetla formularz kontaktowy
     echo '<form method="post" action="">
             Temat: <input type="text" name="temat"><br>
             Treść: <textarea name="tresc"></textarea><br>
@@ -13,7 +13,7 @@ function PokazKontakt()
 
 function PrzypomnijHaslo()
 {
-    // HTML form for displaying the password reminder form
+    // Wyświetla formularz przypomnienia hasła
     echo '<form method="post" action="">
             Podaj swój email: <input type="email" name="email"><br>
             <input type="submit" name="action" value="PrzypomnijHaslo">
@@ -22,14 +22,15 @@ function PrzypomnijHaslo()
 
 function WyslijMailaKontakt($odbiorca)
 {
+    // Wysyła email z formularza kontaktowego
     if (empty($_POST['temat']) || empty($_POST['tresc']) || empty($_POST['email'])) {
         echo '[nie_wypelniles_pola]';
-        PokazKontakt(); // Re-display the contact form
+        PokazKontakt(); // Ponowne wyświetlenie formularza kontaktowego
     } else {
         $mail['subject'] = $_POST['temat'];
         $mail['body'] = $_POST['tresc'];
         $mail['sender'] = $_POST['email'];
-        $mail['recipent'] = $odbiorca; // You are the recipient if creating a contact form
+        $mail['recipent'] = $odbiorca; // Jesteś odbiorcą, jeśli tworzysz formularz kontaktowy
 
         $header = "From: Formularz kontaktowy <" . $mail['sender'] . ">\n";
         $header .= "MIME-Version: 1.0\nContent-Type: text/plain; charset=utf-8\nContent-Transfer-Encoding:\n";
@@ -44,13 +45,13 @@ function WyslijMailaKontakt($odbiorca)
     }
 }
 
-// Example usage:
+// Przykładowe użycie:
 if ($_SERVER['REQUEST_METHOD'] === 'POST') {
-    // Check if the form is submitted
+    // Sprawdza, czy formularz został przesłany
     if (isset($_POST['action'])) {
-        // Check which action is requested
+        // Sprawdza, która akcja jest żądana
         if ($_POST['action'] === 'WyslijMailaKontakt') {
-            WyslijMailaKontakt('your@email.com');
+            WyslijMailaKontakt('twoj@email.com');
         } elseif ($_POST['action'] === 'show_contact_form') {
             PokazKontakt();
         } elseif ($_POST['action'] === 'PrzypomnijHaslo') {

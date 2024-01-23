@@ -43,6 +43,8 @@ function dodajProduktDoKoszyka($idProduktu, $ilosc) {
             $_SESSION['koszyk'][$identyfikatorProduktu] = array(
                 'id' => $idProduktu,
                 'tytul' => $produkt['tytul'], // Dodanie tytułu
+				'opis' => $produkt['opis'],
+				'zdjecie' => $produkt['zdjecie'],
                 'ilosc' => $ilosc,
                 'cenaNetto' => $produkt['cena_netto'],
                 'vat' => $produkt['vat'],
@@ -94,6 +96,8 @@ function wczytajProduktyZBazyDoKoszyka() {
                 $_SESSION['koszyk'][$identyfikatorProduktu] = array(
                     'id' => $idProduktu,
 					'tytul' => $produkt['tytul'],
+					'opis' => $produkt['opis'],
+					'zdjecie' => $produkt['zdjecie'],
                     'ilosc' => 0, 
                     'cenaNetto' => $produkt['cena_netto'],
                     'vat' => $produkt['podatek_vat'],
@@ -182,12 +186,13 @@ echo '<h2>Koszyk:</h2>';
 if (!empty($_SESSION['koszyk'])) {
     echo '<form method="post" action="">';
     echo '<table border="1">';
-    echo '<tr><th>ID</th><th>Tytuł</th><th>Cena Netto</th><th>VAT</th><th>Ilość</th><th>Wartość</th><th>Akcje</th></tr>';
+    echo '<tr><th>ID</th><th>Tytuł</th><th>Opis</th><th>Cena Netto</th><th>VAT</th><th>Ilość</th><th>Wartość</th><th>Zdjęcia</th></tr>';
 
     foreach ($_SESSION['koszyk'] as $identyfikatorProduktu => $produkt) {
         echo '<tr>';
         echo '<td>' . $produkt['id'] . '</td>';
         echo '<td>' . $produkt['tytul'] . '</td>';
+		echo '<td>' . $produkt['opis'] . '</td>';
         echo '<td>' . $produkt['cenaNetto'] . '</td>';
         echo '<td>' . $produkt['vat'] . '</td>';
         echo '<td>';
@@ -195,9 +200,13 @@ if (!empty($_SESSION['koszyk'])) {
         echo '<input type="number" name="nowaIlosc[]" value="' . $produkt['ilosc'] . '" min="0">';
         echo '</td>';
         echo '<td>' . (($produkt['cenaNetto'] * (1 + $produkt['vat'] / 100)) * $produkt['ilosc']) . '</td>';
+		echo '<td>';
+        echo '<img src="zdjecia/' . $produkt['zdjecie'] . '" alt="Zdjęcie produktu" width="250" height="150">';
+        echo '</td>';
         echo '<td>';
         echo '<input type="hidden" name="identyfikatorProduktu[]" value="' . $identyfikatorProduktu . '">';
         echo '</td>';
+		
         echo '</tr>';
     }
 

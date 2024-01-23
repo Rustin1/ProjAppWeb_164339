@@ -1,19 +1,23 @@
 <?php
+// Rozpocznij lub wznow sesję
 if (!isset($_SESSION)) {
     session_start();
 }
+// Zainicjuj zmienną sesji, jeśli nie jest ustawiona
 if (!isset($_SESSION['confirmed'])) {
     $_SESSION['confirmed'] = false;
 }
-
+// Dołącz plik konfiguracyjny
 include("php/cfg.php");
 
+// Przypisz wartości logowania do zmiennych
 $cfgpass = $pass;
 $cfglogin = $login;
 
-// Establish database connection
+// Ustanów połączenie z bazą danych
 $conn = GetConn();
 
+// Funkcja do generowania formularza logowania
 function FormularzLogowania()
 {
     $wynik = '
@@ -32,7 +36,7 @@ function FormularzLogowania()
     ';
     return $wynik;
 }
-
+// Funkcja do wyświetlania listy stron
 function ListaPodstron(){
         $conn = GetConn();
         $query="SELECT * FROM page_list LIMIT 100";
@@ -45,7 +49,7 @@ function ListaPodstron(){
         }
         echo '</table></form>';
     }
-
+// Funkcja do edytowania strony
 function EdytujPodstrone($id){
 		
         $query='SELECT * FROM page_list WHERE id = '.$id;
@@ -85,10 +89,10 @@ function EdytujPodstrone($id){
         ';
     }
 
-
+// Funkcja do dodwania strony
 function DodajNowaPodstrone()
 {
-    global $conn; // Use the global connection
+    global $conn; // Użyj globalnego połączenia
 
     if ($_SERVER['REQUEST_METHOD'] === 'POST' && isset($_POST['dodajNowaPodstrone'])) {
         if (isset($_POST['tytul'], $_POST['tresc'], $_POST['aktywna'])) {
@@ -96,7 +100,7 @@ function DodajNowaPodstrone()
             $tresc = $_POST['tresc'];
             $aktywna = isset($_POST['aktywna']) ? 1 : 0;
 
-            // Use prepared statement to prevent SQL Injection
+            // Użyj przygotowanego polecenia, aby zapobiec wstrzykiwaniu SQL
             $query = "INSERT INTO page_list (name, page_content, is_active) VALUES (?, ?, ?)";
             $stmt = $conn->prepare($query);
 
@@ -108,7 +112,7 @@ function DodajNowaPodstrone()
                     die('Error in INSERT query: ' . $stmt->error);
                 }
 
-                // Check if the insertion was successful
+                // Sprawdź, czy wstawienie było udane
                 if ($stmt->affected_rows > 0) {
                     unset($_POST['dodajNowaPodstrone']);
 					header("Location: http://localhost/164339/admin.php");
@@ -124,7 +128,7 @@ function DodajNowaPodstrone()
         }
     }
 
-    // Display the form for adding a new subpage
+    // Pokaż formularz dla nowej podstrony
     echo '<form method="post" action="' . $_SERVER['REQUEST_URI'] . '">';
     echo 'Tytuł: <input type="text" name="tytul"><br>';
     echo 'Treść: <textarea name="tresc"></textarea><br>';
@@ -133,7 +137,7 @@ function DodajNowaPodstrone()
     echo '</form>';
 }
 
-
+// Funkcja usuwająca podstronę
 function UsunPodstrone($id)
 {
     $dbhost = 'localhost';
@@ -144,7 +148,16 @@ function UsunPodstrone($id)
     $link = new mysqli($dbhost,$dbuser,$dbpass,$db);
     $query="DELETE FROM page_list WHERE id='$id'";
     mysqli_query($link, $query);
+	
+	
+	
+    unset($_POST['UsunPodstrone']);
+	header("Location: http://localhost/164339/admin.php");
+	die();
+    
+    
 }
+// Funkcja sprawdzająca czy zmienna POST istnieje
 function CheckPost($val){
         if(isset($_POST[$val])){
             return true;
@@ -153,7 +166,7 @@ function CheckPost($val){
     }
 
 
-
+// Logika uwierzytelniania
 if (isset($_POST['login_email'])) {
     if (isset($_POST['login_pass'])) {
         if ($_POST['login_email'] == $cfglogin && $_POST['login_pass'] == $cfgpass) {
@@ -161,11 +174,11 @@ if (isset($_POST['login_email'])) {
         }
     }
 }
-
+// Obsługa wylogowywania
 if (isset($_POST['wylogowywanie'])) {
     $_SESSION['confirmed'] = false;
 }
-
+// Sprawdzenie, czy użytkownik jest uwierzytelniony
 if ($_SESSION['confirmed']) {
 	echo '<form method="post" action="' . htmlspecialchars($_SERVER['REQUEST_URI']) . '">';
     echo '<input type="submit" name="dodajNowaPodstrone" value="Dodaj nową podstronę">';
@@ -175,16 +188,18 @@ if ($_SESSION['confirmed']) {
 } else {
     echo FormularzLogowania();
 }
-
+// Sprawdzenie, czy został wysłany formularz usuwający podstronę
 if (isset($_POST['usun'])) {
     $id_to_delete = $_POST['usun'];
     UsunPodstrone($id_to_delete);
+;
 }
-// Add a condition to invoke the DodajNowaPodstrone function
+// Warunek wywołujący funkcję DodajNowaPodstrone
 if (isset($_POST['dodajNowaPodstrone'])) {
     DodajNowaPodstrone();
 }
 
+// Sprawdzenie, czy został wysłany formularz edycji
 if(isset($_POST['edytuj'])){
             echo EdytujPodstrone($_POST['edytuj']);
         }
@@ -215,6 +230,6 @@ elseif(CheckPost('id') and CheckPost('tytul') and CheckPost('content')){
         }  
 
 
-// Close the database connection
+// Zamknij połączenie z bazą danych
 $conn->close();
 ?>

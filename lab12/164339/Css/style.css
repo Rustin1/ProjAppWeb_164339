@@ -17,12 +17,17 @@
 }
 body {
 	color: #000;
+	
 }
 
 
 h1 {
     text-align: center;
 	color: #000;
+	background-color: rgba(0, 0, 0, 0.05);
+	padding: 30px
+	
+	
 }
 
 h2 {
@@ -35,45 +40,65 @@ h3 {
 	color: #000;
 }
 
-head {
-	 background-color: rgb(50, 50, 50);
-}
-
-.naglowek {
+th {
+    width: 300px;
     background-color: rgba(0, 0, 0, 0.25);
-	height:150px;
-}
-
-.menu {
-    width: 10%;
-    padding: 20px;
-    background-color: rgba(0, 0, 0, 0.5);
 	vertical-align: top;
+	text-align: center;
+	padding: 30px
+
 }
 
-.menu ul {
-    list-style-type: none;
-    padding: 0;
-	background-color: rgba(0, 0, 0, 0);
-}
 
-.szkielet {
-	width: 100%;
+td {
+	width: 30px;
 	height: 100%;
-	border: "0px";
+	border: 20px;
+	padding: 30px
 }
 
-ul {
-    list-style-type: disc;
-    padding: 0,5;
-	background-color: rgba(0, 0, 0, 0.125);
+table {
+
+	text-align: center;
+	color: #000;
+	background-color: rgba(0, 0, 0, 0.05);
+	padding: 2px	
+}
+	
+
+
+FORM {
+	text-align: center;
+	color: #000;
+	background-color: rgba(0, 0, 0, 0.05);
+	padding: 2px	
 }
 
-ul li {
-    margin: 5px 0;
+
+p {
+	text-align: center;
+	color: #000;
+	background-color: rgba(0, 0, 0, 0.05);
+	padding: 2px
+	vertical-align: bottom;	
+}
+iframe {
+	text-align: center;
+	color: #000;
+	background-color: rgba(0, 0, 0, 0.05);
+	padding: 2px
+	vertical-align: bottom;	
+	
+	
 }
 
-ul li a {
-    text-decoration: none;
-    color: #fff;
+.outside {
+	width: 600px;
+	height: 400px;
+	border: 2px solid black;
+
+	display: flex;
+	justify-content: center;
+	align-items: center;
 }
+	
